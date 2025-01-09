@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Recipe {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  name          String
+  description   String?
+  instructions  String
+  prepTime      Int
+  cookTime      Int
+  servings      Int
+  difficulty    Difficulty @default(MEDIUM)
+  usageCount    Int      @default(0)
+  userId        String
+  familyId      String
+  ingredients   RecipeIngredient[]
+  ratings       RecipeRating[]
+
+  @@index([userId])
+  @@index([familyId])
+}
+
+model RecipeIngredient {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  recipeId  String
+  itemId    String
+  quantity  Float
+  unit      String
+  notes     String?
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  item      Item     @relation(fields: [itemId], references: [id])
+
+  @@index([recipeId])
+  @@index([itemId])
+}
+
+model RecipeRating {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  recipeId   String
+  userId     String
+  nutrition  Int?     @default(0)
+  flavor     Int?     @default(0)
+  difficulty Int?     @default(0)
+  comment    String?
+  recipe     Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, userId])
+  @@index([recipeId])
+  @@index([userId])
+}
+
+// Reference to Item model from shopping plugin
+model Item {
+  id            String   @id
+  name          String
+  ingredients   RecipeIngredient[]
+}
+
+// Reference to User model for type safety
+model User {
+  id            String   @id
+  name          String
+}

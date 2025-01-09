@@ -1,0 +1,49 @@
+{
+  "name": "fm-recipes-plugin",
+  "version": "1.0.0",
+  "description": "Recipe management plugin for FamilyManager",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@familymanager/sdk": "^1.0.0",
+    "@prisma/client": "^5.0.0",
+    "hono": "^3.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "prisma": "^5.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/fm-recipes-plugin.git"
+  },
+  "keywords": [
+    "recipes",
+    "family-manager",
+    "plugin"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-username/fm-recipes-plugin/issues"
+  },
+  "homepage": "https://github.com/your-username/fm-recipes-plugin#readme"
+}
